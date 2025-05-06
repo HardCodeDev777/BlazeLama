@@ -1,0 +1,63 @@
+﻿@inject NavigationManager Nav
+
+@((MarkupString)styleLink)
+
+@if (isVisible)
+{
+    <div class="popup-overlay">
+        <div class="popup-window">
+            <h3>New chat</h3>
+            <input class="popup-input" @bind="title" placeholder="Chat name" />
+            <input class="popup-input" @bind="modelName" placeholder="Model name" />
+            <div class="popup-buttons">
+                <button class="popup-btn" @onclick="Confirm">OK</button>
+                <button class="popup-btn" @onclick="Close">Cancel</button>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+
+    private MarkupString styleLink = new($"<link href=\"Popups.css\" rel=\"stylesheet\">");
+
+    [Parameter]
+    public bool isVisible { get; set; }
+    [Parameter] 
+    public EventCallback OnClose { get; set; }
+
+    private string title = "";
+    private string modelName = "";
+    private string dialogRoute ="";
+
+    private async Task Confirm()
+    {
+        dialogRoute = "";
+
+        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        var stringChars = new char[16];
+        var random = new Random();
+
+        for (int i = 0; i < stringChars.Length; i++) stringChars[i] = chars[random.Next(chars.Length)];	
+        dialogRoute = new String(stringChars);
+
+
+        PageData.routes.Add(dialogRoute);
+
+        PageData.chatModels.Add(dialogRoute, modelName);
+        await JsonSaver.SaveToJSON(PageData.chatModels);
+
+        // Сначала всегда название, потом имя модели
+        List<string> chatData = new();
+
+        chatData.Add(title);
+        chatData.Add(modelName);
+
+        PageData.routesNames.Add(dialogRoute, chatData);
+        await JsonSaver.SaveToJSON(PageData.routesNames);
+        Chat.wasRendered = false;
+        Nav.NavigateTo($"/chat/{dialogRoute}");
+    }
+
+    private void Close() => OnClose.InvokeAsync();
+}

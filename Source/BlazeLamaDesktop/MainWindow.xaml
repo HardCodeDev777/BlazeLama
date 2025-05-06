@@ -1,0 +1,76 @@
+﻿<Window x:Class="BlazeLamaDesktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        Title="BlazeLama"
+        Height="720" Width="1280"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent">
+
+    <Window.Resources>
+
+        <Style x:Key="WindowControlButtonStyle" TargetType="Button">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#4A40BF"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1A1A2E"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+
+    <Border Background="#0F0F0F" BorderBrush="#030408" BorderThickness="1" CornerRadius="8">
+        <Grid>
+
+            <Grid Height="36" Background="#030408" VerticalAlignment="Top" MouseDown="TitleBar_MouseDown">
+                <TextBlock Text="BlazeLama"
+                           Foreground="#4A40BF"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"
+                           Margin="12,0,0,0"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="─"
+                            Width="40" Height="36"
+                            Click="MinimizeButton_Click"
+                            ToolTip="Minimize"
+                            Style="{StaticResource WindowControlButtonStyle}"/>
+
+                    <Button Content="▢"
+                            Width="40" Height="36"
+                            Click="MaxRestoreButton_Click"
+                            ToolTip="Maximize"
+                            Style="{StaticResource WindowControlButtonStyle}"/>
+
+                    <Button Content="✕"
+                            Width="40" Height="36"
+                            Click="CloseButton_Click"
+                            ToolTip="Close"
+                            Style="{StaticResource WindowControlButtonStyle}"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Margin="0,36,0,0">
+                <wv2:WebView2 Name="webView" />
+            </Grid>
+
+        </Grid>
+    </Border>
+</Window>

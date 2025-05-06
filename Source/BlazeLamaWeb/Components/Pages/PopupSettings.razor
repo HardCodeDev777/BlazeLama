@@ -1,0 +1,50 @@
+﻿@inject NavigationManager Nav
+
+@((MarkupString)styleLink)
+
+@if (isVisible)
+{
+	<div class="popup-overlay">
+		<div class="popup-window">
+			<h3>Settings</h3>
+			<input class="popup-input" @bind="exePath" placeholder="Path to Ollama app.exe" />
+
+            <div class="popup-centered-single">
+                <button class="popup-btn" @onclick="DeleteAllData">Delete data</button>
+            </div>
+
+			<div class="popup-footer">
+                Copyright (c) 2025 HardCodeDev
+            </div>
+
+			<div class="popup-buttons">
+				<button class="popup-btn" @onclick="Close">Cancel</button>
+			</div>
+		</div>
+	</div>
+}
+
+@code {
+
+	private MarkupString styleLink = new($"<link href=\"Popups.css\" rel=\"stylesheet\">");
+
+	[Parameter]
+	public bool isVisible { get; set; }
+	[Parameter] 
+	public EventCallback OnClose { get; set; }
+
+	private string exePath = "";
+
+
+	private async void Close() 
+	{
+		await OnClose.InvokeAsync();
+		if(!string.IsNullOrEmpty(exePath)) await JsonSaver.SaveToJSON(exePath);
+	}
+
+	private void DeleteAllData(MouseEventArgs args)
+	{
+		DeleteData.DeleteFiles();
+		Nav.NavigateTo($"/");
+	}
+}

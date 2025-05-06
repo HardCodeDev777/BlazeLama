@@ -1,0 +1,40 @@
+﻿@rendermode InteractiveServer
+
+
+<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+
+<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+        @foreach (var route in PageData.routes)
+        {
+            if (PageData.routesNames.ContainsKey(route))
+            {
+                <div class="nav-item px-3 d-flex justify-between align-items-center">
+                    <NavLink class="nav-link flex-grow-1" href=@($"/chat/{route}")>
+                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> @PageData.routesNames[route][0]
+                    </NavLink>
+                    <button class="chat-btn ms-2" @onclick="t => DeletePage(route)"></button>
+                </div>
+            }
+        }
+    </nav>
+</div>
+
+@code{
+    private async Task DeletePage(string route)
+    {
+        PageData.routes.Remove(route);
+
+        PageData.history.Remove(route);
+        PageData.routesNames.Remove(route);
+        PageData.chatModels.Remove(route);
+        await JsonSaver.SaveToJSON(PageData.history);
+        await JsonSaver.SaveToJSON(PageData.routesNames);
+        await JsonSaver.SaveToJSON(PageData.chatModels);
+    }
+}

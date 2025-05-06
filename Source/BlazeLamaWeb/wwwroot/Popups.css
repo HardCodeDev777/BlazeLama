@@ -1,0 +1,105 @@
+﻿.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popup-window {
+    background-color: rgb(6, 8, 15);
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(120, 60, 255, 0.2);
+    min-width: 350px;
+    max-width: 90%;
+    color: white;
+    font-family: sans-serif;
+}
+
+    .popup-window h3 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 1.2rem;
+        color: hsl(245 50% 70%);
+    }
+
+.popup-input {
+    border: none;
+    border-radius: 0.5em;
+    padding: 0.5em 0.9em;
+    width: 100%;
+    margin-bottom: 15px;
+    background-color: rgb(6, 8, 7);
+    caret-color: hsl(245 50% 50%);
+    color: white;
+    font-size: 0.95rem;
+    box-shadow: 0 0 0 -0.1em hsl(245 15% 10%), 0 0 0 -0.2em hsl(245 50% 50% / 0.8);
+    transition: box-shadow 300ms ease;
+}
+
+    .popup-input:focus {
+        outline: none;
+        box-shadow: 0 0 0 0.2em hsl(245 15% 10%), 0 0 0 0.4em hsl(245 50% 50% / 0.8);
+    }
+
+.popup-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.popup-btn {
+    background-color: hsl(245 20% 10%);
+    color: white;
+    border: 1px solid hsl(245 50% 50%);
+    border-radius: 6px;
+    padding: 0.4em 1em;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.popup-btn:hover {
+    background-color: hsl(245 50% 50%);
+}
+
+.popup-buttons-centered {
+    background-color: hsl(245 20% 10%);
+    color: white;
+    border: 1px solid hsl(245 50% 50%);
+    border-radius: 6px;
+    padding: 0.4em 1em;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 5px;
+    margin-bottom: -10px;
+}
+
+.popup-btn-centered:hover {
+    background-color: hsl(245 50% 50%);
+}
+
+.popup-centered-single {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.popup-footer {
+    text-align: center;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.3);
+    user-select: none;
+    margin-bottom: 0.5rem;
+}

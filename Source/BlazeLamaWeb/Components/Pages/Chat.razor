@@ -1,0 +1,102 @@
+﻿@page "/chat/{SessionId}"
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<style>
+    body {
+        background-color: rgb(6, 8, 15);
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        overflow: auto;
+    }
+</style>
+
+<div class="chat-container">
+
+@foreach (var msg in DataMessages)
+{ 
+<div class="chat-message @(msg.Role)">
+    @msg.Text
+</div>
+}
+
+</div>
+
+<div class="input-wrapper">
+<input
+    class="form-input"
+    placeholder=" "
+    autocomplete="off"
+   @onkeydown ="OnChangeKeyboard" 
+   @onchange = "OnChange"/>
+<label for="prompt" class="form-label">YOUR MESSAGE</label>
+</div>
+
+@code {
+    private bool isEntered;
+
+    public static bool wasRendered;
+
+    [Parameter]
+    public string SessionId { get; set; } = "";
+
+    private List<ChatData> DataMessages = new(); 
+
+    OllamaRunning ollama = new();
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // Если юзер сам ввел какой то url
+        if (!PageData.routes.Contains(SessionId))
+        {
+            Nav.NavigateTo("/404");
+            return;
+        }
+        if (!wasRendered) await ReloadAgain();
+    }
+
+    private async Task ReloadAgain()
+    {
+        await Task.Delay(500);
+        wasRendered = true;
+        Nav.NavigateTo($"/chat/{SessionId}", true);       
+    }
+
+    protected override async Task OnInitializedAsync() 
+    {
+
+        // В DataMessages добавляет List<ChatData>
+        if (PageData.history.TryGetValue(SessionId, out var value))
+            DataMessages = value;
+
+        // Если есть модель то инициализируем олламу
+        if (PageData.chatModels.TryGetValue(SessionId, out var model))
+            ollama.Initialize(model, DataMessages); 
+    }
+
+    private void OnChangeKeyboard(KeyboardEventArgs args) 
+    {
+        var key = args.Key;
+        if (key == "Enter") isEntered = true;
+        else isEntered = false;
+    }
+
+    private async Task OnChange(ChangeEventArgs args) 
+    {
+        var userPrompt = (string)args.Value!;
+        if (!string.IsNullOrWhiteSpace(userPrompt) && isEntered && ollama.canType)
+        {
+            DataMessages.Add(new("user", userPrompt));
+
+            string aiResponse = await ollama.Response(userPrompt);
+            DataMessages.Add(new("assistant", aiResponse));
+
+            PageData.history[SessionId] = DataMessages;
+            await JsonSaver.SaveToJSON(PageData.history);
+        }
+        return;
+    }
+
+}

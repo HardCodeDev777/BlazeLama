@@ -1,0 +1,53 @@
+﻿@page "/"
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<style>
+	body {
+        background-color: rgb(6, 8, 15);
+    }
+</style>
+
+<button class="button-6" role="button"  @onclick="ShowPopupChat"> <span class="text" >Create new chat</span > </button >
+<PopUpChat isVisible="@isVisChat" OnClose="@(() => isVisChat = false)" />
+<button class="sett-btn" role="button"  @onclick="ShowPopupSettings"> <span class="text" ></span > </button >
+<PopupSettings isVisible="@isVisSett" OnClose="@(() => isVisSett = false)" />
+
+@code {
+	private bool isVisChat, isVisSett;
+	private static bool isRendered;
+
+	protected override async Task OnInitializedAsync()
+	{
+		base.OnInitialized();
+		// Получает историю чата
+		PageData.history = await JsonSaver.ReadFromJSON();
+
+		// Если путей нет
+		if (PageData.routes.Count == 0) 
+		{
+			// Если история есть
+			if (PageData.history.Count != 0)
+			{
+				// Добавляет пути
+				foreach (var data in PageData.history.Keys) PageData.routes.Add(data);
+				Nav.NavigateTo($"/");
+			}
+		}
+		// Получает имя и модель чата
+		PageData.routesNames = await JsonSaver.ReadFromJSONNames();
+		// Получает модели чата
+		PageData.chatModels = await JsonSaver.ReadFromJSONModels();
+		if (!isRendered) await ReloadAgain();
+	}
+
+	private async Task ReloadAgain()
+    {
+        await Task.Delay(500);
+        isRendered = true;
+        Nav.NavigateTo("/", true);       
+    }
+
+	private void ShowPopupChat(MouseEventArgs args) => isVisChat = true;
+	private void ShowPopupSettings(MouseEventArgs args) => isVisSett= true;
+}
