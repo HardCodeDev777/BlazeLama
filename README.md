@@ -110,7 +110,7 @@ While on the Home screen, click the ⚙️ icon in the top right corner to open 
 ## 📄 License
 
 This project is licensed under the **MIT License**.  
-See [`LICENSE.txt`](LICENSE.txt) for full terms.
+See LICENSE for full terms.
 
 ---
 
