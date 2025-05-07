@@ -19,8 +19,11 @@ BlazeLama provides a simple and responsive UI for chatting with local Ollama mod
 
 It works with any model downloaded via the [Ollama CLI](https://ollama.com/library).
 
+&nbsp;
+&nbsp;
 
 ![BlazeLama](./app.gif)
+
 
 ---
 
