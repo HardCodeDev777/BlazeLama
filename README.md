@@ -1,4 +1,11 @@
-﻿
+![Ollama](https://img.shields.io/badge/Ollama-%23000000?logo=Ollama)
+![Blazor](https://img.shields.io/badge/Blazor-%23512BD4?logo=Blazor)
+![License](https://img.shields.io/github/license/HardCodeDev777/BlazeLama?color=%2305991d)
+![Programm Size](https://img.shields.io/github/size/HardCodeDev777/BlazeLama/Release%2FBlazeLama.zip?color=%2305991d)
+![Last commit](https://img.shields.io/github/last-commit/HardCodeDev777/BlazeLama?color=%2305991d)
+![Tag](https://img.shields.io/github/v/tag/HardCodeDev777/BlazeLama)
+![Top Lang](https://img.shields.io/github/languages/top/HardCodeDev777/BlazeLama)
+ 
 <div align="center">
     <img src="logo.png" width="256">
 </div>
@@ -6,7 +13,7 @@
 # 🦙 BlazeLama
 
 **BlazeLama** is (hopefully) the first user-friendly, lightweight desktop chat client for [Ollama](https://ollama.com), built with **Blazor Server** and **WPF WebView**.
-
+ 
 ---
 
 ## 🚀 Overview
@@ -103,7 +110,7 @@ While on the Home screen, click the ⚙️ icon in the top right corner to open 
 ## 📄 License
 
 This project is licensed under the **MIT License**.  
-See [`LICENSE.txt`](LICENSE.txt) for full terms.
+See LICENSE for full terms.
 
 ---
 
