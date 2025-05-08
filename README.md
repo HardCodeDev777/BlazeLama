@@ -1,7 +1,6 @@
 ![Ollama](https://img.shields.io/badge/Ollama-%23000000?logo=Ollama)
 ![Blazor](https://img.shields.io/badge/Blazor-%23512BD4?logo=Blazor)
 ![License](https://img.shields.io/github/license/HardCodeDev777/BlazeLama?color=%2305991d)
-![Programm Size](https://img.shields.io/github/size/HardCodeDev777/BlazeLama/Release%2FBlazeLama.zip?color=%2305991d)
 ![Last commit](https://img.shields.io/github/last-commit/HardCodeDev777/BlazeLama?color=%2305991d)
 ![Tag](https://img.shields.io/github/v/tag/HardCodeDev777/BlazeLama)
 ![Top Lang](https://img.shields.io/github/languages/top/HardCodeDev777/BlazeLama)
