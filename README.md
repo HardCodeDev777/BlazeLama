@@ -106,6 +106,12 @@ While on the Home screen, click the ⚙️ icon in the top right corner to open 
 - [ ]  Better error handling
 ---
 
+## Credits for Styles
+
+Some styles used in this project were borrowed from an open-source template found online. Unfortunately, I couldn't locate the original source or author. If you're the original creator, feel free to contact me so I can give a credit or remove the styles if needed.
+
+---
+
 ## 📄 License
 
 This project is licensed under the **MIT License**.  
